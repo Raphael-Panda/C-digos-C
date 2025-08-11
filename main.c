@@ -2,31 +2,38 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define PI 3.14
-//Fa√ßa um algoritmo em C que calcule e exiba a tela a √°rea e o volume de uma esfera de Raio (R) em metros, sabendo que:
+//Escrever um algoritmo em C que leia de uma (1) mercadoria:
 
-//√ÅreaEsfera=4 * œÄ * R2
+//PreÁo: R$
+//Quantidade: Unidade
+//Reajuste (Desconto): %
+//exbir na tela:
 
-//VolumeEsfera=4/3 * œÄ * R3
+//Total a pagar: sem desconto
+//Total a pagar: com desconto
+//Total de Desconto
 
-//Exibir os resultados do volume na tela em  M3  e litros, sendo que: 1  M3  = 1000 Litros.
 int main() {
 
     // ENTRADA:
-    float R, area, volume, volumeLitros;
-    printf("ESFERA: Dados de Entrada: \n");
-    printf("Valor do Raio(em metros): "); scanf("%f", &R);
+    float reajuste, preco;
+    float totalBruto, totalLiquido, desconto;
+    int quantidade;
+    printf("MERCADORIA: Dados de Entrada\n");
+    printf("PreÁo (R$):  "); scanf("%f", &preco);
+    printf("Quantidade (Unidade): "); scanf("%i", &quantidade);
+    printf("Reajuste (%%): "); scanf("%f", &reajuste);
 
-    //PROCESSAMENTO:
-    area = 4 * PI * pow(R, 2);  // Metros Quadrados
-    volume = 4.0/3 * PI * pow(R, 3);   // Metros C√∫bicos (o 4.0 precisa do ".0" para transformar em float pois apenas o "4" fica inteiro, ent√£o a conta final fica errada)
-    volumeLitros = volume * 1000;    // Litros
+    // PROCESSAMENTO:
+    totalBruto = preco * quantidade;
+    desconto = reajuste/100 * totalBruto; // totalBruto aparece pois È dele que ser· retirado o valor do desconto
+    totalLiquido = totalBruto - desconto;
 
-    // SA√çDA:
-    printf("Dados da Esfera: \n");
-    printf("Area: %.2f Metros Quadrados\n", area);
-    printf("Volume: %.2f Metros Quadrados\n", volume);
-    printf("Volume Litros: %.2f Litros\n", volumeLitros);
+    // SAÕDA:
+    printf("Dados de Pagamento: \n");
+    printf("Total (sem desconto): R$ %.2f\n", totalBruto);
+    printf("Total (com desconto: %.2f %%): R$ %.2f\n", reajuste, totalLiquido);
+    printf("Total de desconto %.2f %%: Valor do desconto R$ %.2f\n", reajuste, desconto);
 
     return 0;
 }
