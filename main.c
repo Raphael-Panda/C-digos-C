@@ -6,9 +6,10 @@
 int main()
 {
     int matricula[TAMANHO];             // colocar o TAMANHO para alocar os 50 espaços de memória
-    float bimestre1[TAMANHO], media;           // colocar o TAMANHO para alocar os 50 espaços de memória
+    float bimestre1[TAMANHO], media, aux2;           // colocar o TAMANHO para alocar os 50 espaços de memória
     int indice = 0, i;                      // O indice sempre começa no 0 e vai até o TAMANHO - 1
-    int opcao, soma = 0;
+    int opcao, soma = 0, output, valor;
+    int Ls, Flag, aux1;
 
 
     printf("MENU DE OPCOES:\n");
@@ -53,10 +54,73 @@ int main()
                 printf("Media do Bimestre 1: %.1f\n", media);
             }
         }
-        else if(opcao == 3)
-            printf("RELATORIO 2:\n");
-        else if(opcao == 4)
-            printf("RELATORIO 3:\n");
+        else if(opcao == 3){
+            if(indice == 0)
+                printf("Pauta Vazia\n");
+            else{
+                // Método da Pesquisa Sequencial(Resetar): Inicio
+                printf("Entre com a matricula para pesquisar: ");
+                scanf("%i", &valor);
+                // TRATAMENTO DE ERRO:
+                if(valor < 100 || valor > 999)
+                    printf("ERRO: matricula Incorreta. Escolha Novamente\n");
+                else{
+                    i = 0;        // voltar o indice pra 0
+                    output = -1;  // Valor não encontrado no vetor
+                    while(i < indice){
+                            if(matricula[i] == valor){
+                                output = i;
+                                break;
+                            }
+                            i++;
+                    }
+                    if(output == -1)
+                        printf("Matricula: %i nao localizada na Pauta\n", valor);
+                    else{
+                        printf("Dados do aluno %i sao: \n", output + 1);
+                        printf("Matricula: %i\n", matricula[output]);
+                        printf("Nota Bimestre 1: %.1f\n\n", bimestre1[output]);
+                    }
+                    // Método da Pesquisa Sequencial(Resetar): FIM
+
+                }
+            }
+
+        }
+        else if(opcao == 4){
+            if(indice == 0)
+                printf("Pauta Vazia\n");
+            else{
+                // Método Bolha: INICIO(Resetar)
+                Ls = indice - 1;
+                do{
+                    Flag = 0; // Base Ordenada
+                    for(i = 0; i < Ls; i++){
+                        if(matricula[i] > matricula[i + 1]){
+                            // Trocar: Matricula (aux1)
+                            aux1 = matricula [i];
+                            matricula[i] = matricula[i + 1];
+                            matricula[i + 1] = aux1;
+
+                            // Trocar: Nota do 1 Bimestre (aux2)
+                            aux2 = bimestre1[i];
+                            bimestre1[i] = bimestre1[i + 1];
+                            bimestre1[i + 1] = aux2;
+
+                            Flag = 1;    // Base Desordenada
+                        }
+                    }
+                    Ls--;
+                }while(Flag);
+                printf("Pauta em Ordem (Crescente) de Matricula:\n");
+                for(i = 0; i < indice; i++){
+                    printf("Dados do Aluno %i:\n", i + 1);
+                    printf("Matricula: %i\n", matricula[i]);
+                    printf("Nota - Bimestre 1: %.1f\n\n", bimestre1[i]);
+                }
+                // Metodo Bolha: FIM
+            }
+        }
         else
             printf("RELATORIO 4:\n");
 
