@@ -1,37 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-
-#define TAMANHO 1000
-#define MAX 999
-#define MIN 100
-#define INTERVALO (MAX - MIN + 1)
+#include <math.h>
 
 
+#define TAMANHO 15000
+
+// PROVA DE SEGUNDA-FEIRA
 int main()
 {
-    int senha[TAMANHO], output, i;
-    int valor;
-    srand(time(NULL));
+    int codigo[TAMANHO], nota[TAMANHO];
+    int opcao, i = 0, soma = 0;
+    int j = 0;
 
-    for(i = 0; i < TAMANHO; i++){
-        valor[i] = (rand() % INTERVALO) + MIN;
-        printf("array %i: [%i] = %i\n", i + 1, i, valor[i]);
-    }
+    printf("MENU:\n");
+    printf("OPCAO 1: Cadastrar Visitante\n");
+    printf("OPCAO 2: Nota de Satisfacao media\n");
+    printf("OPCAO 0: Sair do Programa\n");
 
-    while(i < TAMANHO)
-        if(senha[i] < 100 || senha[i] > 999){
-            printf("ERRO: senha fora do intervalo");
+    do{
+        printf("Sua Opcao: "); scanf("%i", &opcao);
+        if(opcao == 0)
+            printf("Fim da Pesquisa\n");
+        else if(opcao < 0 || opcao > 2)
+            printf("ERRO: Opcao Incorreta. Escolha Novamente\n");
+        else if(opcao == 1){
+            printf("Dados do Visitante %i: \n", i + 1);
+            printf("Codigo (XX.XXX): "); scanf("%i", &codigo[i]);
+            printf("Nota [1, 5]: "); scanf("%i", &nota[i]);
+            if(codigo[i] < 10000 || codigo[i] > 99999)
+                printf("ERRO CODIGO: valor incorreto\n");
+            else if(nota[i] < 1 || nota[i] > 5)
+                printf("ERRO NOTA: valor incorreto\n");
+            else{
+                i++;
+                printf("Cadastro com Sucesso!\n");
+            }
         }
         else{
-            printf("Digite a senha: "); scanf("%i", &senha[TAMANHO]);
-            output = -1;
-            if(valor[i] == senha){
-                output = i;
-                break;
-            }
-            i++;
+            printf("RELATORIO:\n");
+            for(j = 0; j < i; j++)
+                soma += nota[i];
+            printf("Nota media: %.1f\n", 1.0 * soma / i);
+            printf("Nota media (teto): %.0f\n", ceil(1.0 * soma / i));
         }
-    }
+    }while(opcao != 0);
+
+}
+
+
     return 0;
 }
