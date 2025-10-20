@@ -1,51 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
+#define VISITANTES 15000
 
-#define TAMANHO 15000
-
-// PROVA DE SEGUNDA-FEIRA
 int main()
 {
-    int codigo[TAMANHO], nota[TAMANHO];
-    int opcao, i = 0, soma = 0;
-    int j = 0;
+    int dias[VISITANTES], nota[VISITANTES];
+    int i = 0, soma = 0, contar = 0;
+    int opcao;
 
-    printf("MENU:\n");
-    printf("OPCAO 1: Cadastrar Visitante\n");
-    printf("OPCAO 2: Nota de Satisfacao media\n");
-    printf("OPCAO 0: Sair do Programa\n");
+    printf("MENU\n");
+    printf("OPCAO 1: Cadastrar Visitante");
+    printf("OPCAO 2: Relatorio da Nota Media");
+    printf("OPCAO 0: Para Sair");
 
     do{
         printf("Sua Opcao: "); scanf("%i", &opcao);
         if(opcao == 0)
-            printf("Fim da Pesquisa\n");
+            printf("FIM do Programa\n");
         else if(opcao < 0 || opcao > 2)
-            printf("ERRO: Opcao Incorreta. Escolha Novamente\n");
+            printf("OPCAO INCORRETA: Escolha de novo");
         else if(opcao == 1){
-            printf("Dados do Visitante %i: \n", i + 1);
-            printf("Codigo (XX.XXX): "); scanf("%i", &codigo[i]);
-            printf("Nota [1, 5]: "); scanf("%i", &nota[i]);
-            if(codigo[i] < 10000 || codigo[i] > 99999)
-                printf("ERRO CODIGO: valor incorreto\n");
-            else if(nota[i] < 1 || nota[i] > 5)
-                printf("ERRO NOTA: valor incorreto\n");
+            if(i < VISITANTES)
+                printf("LISTA COMPLETA");
             else{
-                i++;
-                printf("Cadastro com Sucesso!\n");
+                printf("Dados do Visitante %i: ", i + 1);
+                printf("Dias (1, 2 ou 3): "); scanf("%i", &dias [i]);
+                printf("Nota (1 a 5): "); scanf("%i", &nota[i]);
+                if(dias[i] < 1 || dias[i] > 3)
+                    printf("ERRO NUMERO DE DIAS. Escolha de novo");
+                else if(nota[i] < 1 || nota[i] > 5)
+                    printf("ERRO NOTA. Escolha de novo");
+                else{
+                    i++;
+                    printf("VISITANTE CADASTRADO COM SUCESSO.");
+                }
+            }
+            else{
+                for(j = 0; j < i; j++){
+
+                }
             }
         }
-        else{
-            printf("RELATORIO:\n");
-            for(j = 0; j < i; j++)
-                soma += nota[i];
-            printf("Nota media: %.1f\n", 1.0 * soma / i);
-            printf("Nota media (teto): %.0f\n", ceil(1.0 * soma / i));
-        }
-    }while(opcao != 0);
+    }while(opcao != 0)
 
-}
 
 
     return 0;
