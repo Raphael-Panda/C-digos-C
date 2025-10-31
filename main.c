@@ -1,50 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define VISITANTES 15000
+#define TAMANHO 3000
 
-int main()
-{
-    int dias[VISITANTES], nota[VISITANTES];
-    int i = 0, soma = 0, contar = 0;
-    int opcao;
+int main(void) {
+    char texto[TAMANHO] = {"50 Anos da Universidade Vila Velha - UVV: Uma Trajetória de Excelência e Inovação\n\n\tA UVV completa 50 anos de história, consolidando-se como uma das instituições de ensino superior mais respeitadas do Espírito Santo e do Brasil.\nDesde sua fundação, a UVV tem sido símbolo de transformação, inovação e compromisso com o conhecimento. \nO nascimento da UVV marcou um novo tempo para a educação capixaba, oferecendo oportunidades de formação de qualidade e contribuindo para o desenvolvimento regional.\n\n\tNos primeiros anos, a UVV enfrentou desafios comuns a qualquer instituição nascente, mas sua visão ousada e seu corpo docente comprometido fizeram da UVV um polo de referência em ensino, pesquisa e extensão.\nA UVV cresceu, expandiu cursos, criou laboratórios modernos e consolidou parcerias nacionais e internacionais.\nA cada década, a UVV reafirmou seu propósito de formar cidadãos críticos e profissionais éticos.\nHoje, a UVV é reconhecida por sua infraestrutura exemplar e por programas inovadores que unem teoria e prática.\nA UVV também se destaca por incentivar a iniciação científica e por valorizar o impacto social de seus projetos.\n\n\tEm meio século, a UVV tornou-se um espaço de transformação de vidas, inovação tecnológica e responsabilidade social.\nAs comemorações dos 50 anos da UVV refletem o orgulho de toda a comunidade acadêmica.\nA UVV celebra sua trajetória com eventos culturais, científicos e institucionais que resgatam sua memória e projetam seu futuro. Cada conquista da UVV é fruto da dedicação de seus professores, alunos e colaboradores.\nA UVV olha para o passado com gratidão e para o futuro com esperança.\n\tA UVV é hoje sinônimo de qualidade, inovação e pertencimento.\nAo longo de cinco décadas, a UVV construiu um legado de credibilidade e excelência.\nOs 50 anos da UVV representam o reconhecimento de uma história que inspirou gerações e continuará a inspirar muitas outras.\nCom orgulho e emoção, a UVV reafirma seu compromisso de continuar crescendo, evoluindo e transformando o conhecimento em futuro.\n\n\tParabéns, UVV, pelos 50 anos de conquistas e pela dedicação em formar um mundo melhor."};
+    printf("\n\n\t%s (Tamanho: %u caracteres)\n", texto, (unsigned) strlen(texto));
 
-    printf("MENU\n");
-    printf("OPCAO 1: Cadastrar Visitante");
-    printf("OPCAO 2: Relatorio da Nota Media");
-    printf("OPCAO 0: Para Sair");
-
-    do{
-        printf("Sua Opcao: "); scanf("%i", &opcao);
-        if(opcao == 0)
-            printf("FIM do Programa\n");
-        else if(opcao < 0 || opcao > 2)
-            printf("OPCAO INCORRETA: Escolha de novo");
-        else if(opcao == 1){
-            if(i < VISITANTES)
-                printf("LISTA COMPLETA");
-            else{
-                printf("Dados do Visitante %i: ", i + 1);
-                printf("Dias (1, 2 ou 3): "); scanf("%i", &dias [i]);
-                printf("Nota (1 a 5): "); scanf("%i", &nota[i]);
-                if(dias[i] < 1 || dias[i] > 3)
-                    printf("ERRO NUMERO DE DIAS. Escolha de novo");
-                else if(nota[i] < 1 || nota[i] > 5)
-                    printf("ERRO NOTA. Escolha de novo");
-                else{
-                    i++;
-                    printf("VISITANTE CADASTRADO COM SUCESSO.");
-                }
+    char aux[TAMANHO / 100];
+    int i = 0, j, k, contadorPalavras = 0;
+    // PERCORRER O TEXTO INTEIRO:
+    // CARACTERE POR CARACTERE
+    while(texto[i] != '\0'){
+        j = 0; // RESETAR PARA QUANDO COMEÇAR UMA PALAVRA NOVA
+        //LIMPANDO A STRING AUXILIAR
+        for(k = 0; k < TAMANHO / 100; k++)
+            aux[k] = ' ';
+        while(1){  // INFINITO
+            // ASCII: caractere valido?
+            if((texto[i] >= 'a'&& texto[i] <= 'z') || (texto[i] >= 'A' && texto[i] <= 'Z') || (texto[i] >= '0' && texto[i] <= '9') || (texto[i] == '-')){
+                if(texto[i] != ' ')
+                    aux[j] = texto[i];
+                else
+                    break;
+                j++;
+                i++;
             }
-            else{
-                for(j = 0; j < i; j++){
-
-                }
-            }
+            aux[j] = '\0';    // FIM DA STRING NOVA
+            if(strcmp("UVV", aux) == 0)
+                contadorPalavras++;
+            i++;
         }
-    }while(opcao != 0)
+    }
+    printf("A palavra 'UVV' foi encontrado %i", contadorPalavras);
 
-
-
-    return 0;
+  return 0;
 }
